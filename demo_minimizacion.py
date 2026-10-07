@@ -2,9 +2,9 @@
 One process, synthetic KYC, lab JWT profile; no production or legal approval.
 Private keys remain ephemeral. Artifacts include synthetic documents ONLY.
 """
-import json, shutil, sqlite3, tempfile, hashlib
+import json, tempfile, hashlib
 from pathlib import Path
-from reference_jws import Reference, canonical, run as security_checks
+from reference_jws import Reference, canonical, db_connection, run as security_checks
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 MARKERS={'documento':'DOCUMENTO_FICTICIO_PCN_874209','selfie':'SELFIE_FICTICIA_PCN_629415','nacimiento':'DOB_FICTICIO_PCN_1948_02_29','nombre':'NOMBRE_FICTICIO_PCN_438106'}
@@ -14,7 +14,7 @@ def write(path, obj):
  path.write_text(json.dumps(obj,ensure_ascii=False,indent=2))
 
 def backup_db(source, destination):
- with sqlite3.connect(source) as src,sqlite3.connect(destination) as dst:src.backup(dst)
+ with db_connection(source) as src,db_connection(destination) as dst:src.backup(dst)
 
 def audit(root):
  records=[]
@@ -50,7 +50,7 @@ def main():
    write(folder/'cache.json',{'reglas':['age18-kyc/v1'],'datos_personales':[]})
    (folder/'backups').mkdir();backup_db(ref.paths[audience],folder/'backups/recibos.sqlite')
    (folder/'restauracion').mkdir();backup_db(folder/'backups/recibos.sqlite',folder/'restauracion/recibos.sqlite')
-   with sqlite3.connect(folder/'restauracion/recibos.sqlite') as db:
+   with db_connection(folder/'restauracion/recibos.sqlite') as db:
     restored=db.execute('SELECT result FROM receipt WHERE n=?',(challenge['nonce'],)).fetchone()[0]
    observations.append({'servicio':audience,'resultado':outcome,'recibo_tras_respuesta_perdida':recovered,'recibo_tras_restore':restored,'bytes_cuerpo_presentacion':len(canonical(wire).encode()),'claims_personales':['adult','kyc'],'metadatos':['iss','aud','iat','exp','jti','cnf','policy','epoch'],'clave_holder_persistida':False})
   files=audit(root)

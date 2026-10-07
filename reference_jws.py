@@ -4,6 +4,7 @@ Authority is an in-memory fixture: NOT independent custody or production recover
 """
 import hashlib, json, secrets, sqlite3, tempfile, time
 from pathlib import Path
+from contextlib import contextmanager
 import jwt
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey, Ed25519PublicKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
@@ -14,18 +15,28 @@ def canonical(x): return json.dumps(x,sort_keys=True,separators=(',',':'))
 def digest(x): return hashlib.sha256(x.encode()).hexdigest()
 def pub(k): return k.public_key().public_bytes(Encoding.Raw,PublicFormat.Raw).hex()
 
+@contextmanager
+def db_connection(path):
+    """Commit/rollback the transaction, then always close the SQLite handle."""
+    connection = sqlite3.connect(path)
+    try:
+        with connection:
+            yield connection
+    finally:
+        connection.close()
+
 class Reference:
  def __init__(self,root):
   self.root=Path(root);self.issuer=Ed25519PrivateKey.generate();self.active=True
   self.epoch=1;self.revoked=set();self.paths={a:self.root/(a+'.sqlite') for a in ['a','b']}
   for p in self.paths.values():
-   with sqlite3.connect(p) as c:
+   with db_connection(p) as c:
     c.executescript('CREATE TABLE request(n TEXT PRIMARY KEY, context TEXT, expires INTEGER); CREATE TABLE receipt(n TEXT PRIMARY KEY, result TEXT);')
  def issue(self,a,holder,adult=True,kyc=True,key=None,exp=None):
   now=int(time.time());return jwt.encode(dict(iss=ISS,aud=a,iat=now,exp=exp or now+600,jti=secrets.token_hex(16),cnf={'lab_public_hex':pub(holder)},adult=adult,kyc=kyc,policy=POLICY,epoch=self.epoch),key or self.issuer,algorithm='EdDSA',headers={'typ':'JWT'})
  def challenge(self,a,policy=POLICY):
   now=int(time.time());x=dict(aud=a,nonce=secrets.token_hex(32),policy=policy,purpose='synthetic-access',iat=now,exp=now+60)
-  with sqlite3.connect(self.paths[a]) as c:c.execute('INSERT INTO request VALUES(?,?,?)',(x['nonce'],canonical(x),x['exp']))
+  with db_connection(self.paths[a]) as c:c.execute('INSERT INTO request VALUES(?,?,?)',(x['nonce'],canonical(x),x['exp']))
   return x
  def present(self,cred,holder,x):return jwt.encode(dict(aud=x['aud'],iat=int(time.time()),exp=x['exp'],nonce=x['nonce'],credential_hash=digest(cred),context_hash=digest(canonical(x))),holder,algorithm='EdDSA',headers={'typ':'JWT'})
  def verify(self,a,cred,proof,x):
@@ -35,13 +46,13 @@ class Reference:
   holder=Ed25519PublicKey.from_public_bytes(bytes.fromhex(claims['cnf']['lab_public_hex']))
   q=jwt.decode(proof,holder,algorithms=['EdDSA'],audience=a,options={'require':['aud','iat','exp','nonce','credential_hash','context_hash']})
   if q['nonce']!=x['nonce'] or q['credential_hash']!=digest(cred) or q['context_hash']!=digest(canonical(x)):raise ValueError('binding')
-  with sqlite3.connect(self.paths[a]) as c:
+  with db_connection(self.paths[a]) as c:
    c.execute('BEGIN IMMEDIATE');r=c.execute('SELECT context,expires FROM request WHERE n=?',(x['nonce'],)).fetchone()
    if not r or r[0]!=canonical(x) or r[1]<int(time.time()) or c.execute('SELECT 1 FROM receipt WHERE n=?',(x['nonce'],)).fetchone():raise ValueError('challenge/replay')
    c.execute('INSERT INTO receipt VALUES(?,?)',(x['nonce'],'ACCEPTED'))
   return 'ACCEPTED'
  def recover_receipt(self,a,x):
-  with sqlite3.connect(self.paths[a]) as c:r=c.execute('SELECT result FROM receipt WHERE n=?',(x['nonce'],)).fetchone()
+  with db_connection(self.paths[a]) as c:r=c.execute('SELECT result FROM receipt WHERE n=?',(x['nonce'],)).fetchone()
   return r[0] if r else 'UNKNOWN'
 
 def run():
