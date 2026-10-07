@@ -1,0 +1,245 @@
+{
+  "estado": "PASS",
+  "alcance": "SIMULADO; cuatro perfiles, un proceso; cero APIs KYC reales",
+  "controles": {
+    "ripio_initial_approval": true,
+    "ripio_changed_status_blocks_both": true,
+    "ripio_outage_does_not_reuse_approval": true,
+    "ripio_fresh_read_each_action": true,
+    "sumsub_initial_approval": true,
+    "sumsub_changed_status_blocks_both": true,
+    "sumsub_outage_does_not_reuse_approval": true,
+    "sumsub_fresh_read_each_action": true,
+    "truora_initial_approval": true,
+    "truora_changed_status_blocks_both": true,
+    "truora_outage_does_not_reuse_approval": true,
+    "truora_fresh_read_each_action": true,
+    "veriff_initial_approval": true,
+    "veriff_changed_status_blocks_both": true,
+    "veriff_outage_does_not_reuse_approval": true,
+    "veriff_fresh_read_each_action": true,
+    "positive_control_hidden_base64": true,
+    "allowlisted_logs_no_canaries": true
+  },
+  "control_count": 18,
+  "perfiles": [
+    {
+      "profile": "ripio",
+      "cached_baseline_after_change": {
+        "a": true,
+        "b": true
+      },
+      "current_after_change": {
+        "a": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "rejected",
+          "scope": "SIMULADO"
+        },
+        "b": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "rejected",
+          "scope": "SIMULADO"
+        }
+      },
+      "during_outage": {
+        "a": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "provider_unavailable",
+          "scope": "SIMULADO"
+        },
+        "b": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "provider_unavailable",
+          "scope": "SIMULADO"
+        }
+      },
+      "notifications": [
+        {
+          "event": "notification_received",
+          "result": "accepted",
+          "scope": "SIMULADO"
+        },
+        {
+          "event": "notification_received",
+          "result": "accepted",
+          "scope": "SIMULADO"
+        }
+      ],
+      "simulated_reads": 6
+    },
+    {
+      "profile": "sumsub",
+      "cached_baseline_after_change": {
+        "a": true,
+        "b": true
+      },
+      "current_after_change": {
+        "a": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "rejected",
+          "scope": "SIMULADO"
+        },
+        "b": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "rejected",
+          "scope": "SIMULADO"
+        }
+      },
+      "during_outage": {
+        "a": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "provider_unavailable",
+          "scope": "SIMULADO"
+        },
+        "b": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "provider_unavailable",
+          "scope": "SIMULADO"
+        }
+      },
+      "notifications": [
+        {
+          "event": "notification_received",
+          "result": "accepted",
+          "scope": "SIMULADO"
+        },
+        {
+          "event": "notification_received",
+          "result": "accepted",
+          "scope": "SIMULADO"
+        }
+      ],
+      "simulated_reads": 6
+    },
+    {
+      "profile": "truora",
+      "cached_baseline_after_change": {
+        "a": true,
+        "b": true
+      },
+      "current_after_change": {
+        "a": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "rejected",
+          "scope": "SIMULADO"
+        },
+        "b": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "rejected",
+          "scope": "SIMULADO"
+        }
+      },
+      "during_outage": {
+        "a": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "provider_unavailable",
+          "scope": "SIMULADO"
+        },
+        "b": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "provider_unavailable",
+          "scope": "SIMULADO"
+        }
+      },
+      "notifications": [
+        {
+          "event": "notification_received",
+          "result": "accepted",
+          "scope": "SIMULADO"
+        },
+        {
+          "event": "notification_received",
+          "result": "accepted",
+          "scope": "SIMULADO"
+        }
+      ],
+      "simulated_reads": 6
+    },
+    {
+      "profile": "veriff",
+      "cached_baseline_after_change": {
+        "a": true,
+        "b": true
+      },
+      "current_after_change": {
+        "a": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "rejected",
+          "scope": "SIMULADO"
+        },
+        "b": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "rejected",
+          "scope": "SIMULADO"
+        }
+      },
+      "during_outage": {
+        "a": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "provider_unavailable",
+          "scope": "SIMULADO"
+        },
+        "b": {
+          "event": "authorization_checked",
+          "allowed": false,
+          "reason": "provider_unavailable",
+          "scope": "SIMULADO"
+        }
+      },
+      "notifications": [
+        {
+          "event": "notification_received",
+          "result": "accepted",
+          "scope": "SIMULADO"
+        },
+        {
+          "event": "notification_received",
+          "result": "accepted",
+          "scope": "SIMULADO"
+        }
+      ],
+      "simulated_reads": 6
+    }
+  ],
+  "logs_control_positivo": {
+    "literal_markers": 0,
+    "encoded_markers": [
+      "documento",
+      "nacimiento",
+      "nombre"
+    ]
+  },
+  "logs_minimos": {
+    "marcadores_PII": [],
+    "hallazgos": [],
+    "escaneo_acotado_completo": true,
+    "limites_alcanzados": [],
+    "nodos_inspeccionados": 1
+  },
+  "no_demostrado": [
+    "conformidad SDK/API",
+    "autenticacion del proveedor",
+    "freshness del backend remoto",
+    "identidad humana",
+    "AML",
+    "aceptacion legal",
+    "concurrencia distribuida",
+    "costos o latencia productiva",
+    "dos backends criptograficos"
+  ]
+}

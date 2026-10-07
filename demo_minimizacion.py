@@ -6,12 +6,13 @@ import json, tempfile, hashlib
 from pathlib import Path
 from reference_jws import Reference, canonical, db_connection, run as security_checks
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+from privacy_audit import scan
 
 MARKERS={'documento':'DOCUMENTO_FICTICIO_PCN_874209','selfie':'SELFIE_FICTICIA_PCN_629415','nacimiento':'DOB_FICTICIO_PCN_1948_02_29','nombre':'NOMBRE_FICTICIO_PCN_438106'}
 
 def write(path, obj):
  path.parent.mkdir(parents=True,exist_ok=True)
- path.write_text(json.dumps(obj,ensure_ascii=False,indent=2))
+ path.write_text(json.dumps(obj,ensure_ascii=False,indent=2),encoding='utf-8')
 
 def backup_db(source, destination):
  with db_connection(source) as src,db_connection(destination) as dst:src.backup(dst)
@@ -20,7 +21,7 @@ def audit(root):
  records=[]
  for path in sorted(root.rglob('*')):
   if path.is_file():
-   data=path.read_bytes();records.append({'archivo':path.relative_to(root).as_posix(),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'marcadores_PII':[name for name,value in MARKERS.items() if value.encode() in data]})
+   data=path.read_bytes();records.append({'archivo':path.relative_to(root).as_posix(),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),**scan(data,MARKERS)})
  return records
 
 def main():
@@ -56,7 +57,7 @@ def main():
   files=audit(root)
   provider=[x for x in files if x['archivo'].startswith('proveedor/')]
   downstream=[x for x in files if not x['archivo'].startswith('proveedor/')]
-  controls={'captura_realmente_inyectada_en_fixture':all(x in (issuer/'evidencia.json').read_text() for x in MARKERS.values()),'control_positivo_detecta_documentos_en_proveedor':any(x['marcadores_PII'] for x in provider),'marcadores_ausentes_en_wallet_y_servicios':all(not x['marcadores_PII'] for x in downstream),'dos_servicios_aceptan_y_restauran_recibo':all(x['resultado']==x['recibo_tras_respuesta_perdida']==x['recibo_tras_restore']=='ACCEPTED' for x in observations),'controles_JWS_21':security['status']=='PASS'}
+  controls={'captura_realmente_inyectada_en_fixture':all(x in (issuer/'evidencia.json').read_text(encoding='utf-8') for x in MARKERS.values()),'control_positivo_detecta_documentos_en_proveedor':any(x['marcadores_PII'] for x in provider),'marcadores_ausentes_en_wallet_y_servicios':all(not x['marcadores_PII'] for x in downstream),'escaneo_acotado_completo':all(x['escaneo_acotado_completo'] for x in files),'dos_servicios_aceptan_y_restauran_recibo':all(x['resultado']==x['recibo_tras_respuesta_perdida']==x['recibo_tras_restore']=='ACCEPTED' for x in observations),'controles_JWS_21':security['status']=='PASS'}
   result={'estado':'PASS' if all(controls.values()) else 'FAIL','alcance':'SIMULADO: auditoría de archivos controlados; una fixture, un proceso, dos DB locales','controles':controls,'servicios':observations,'archivos_auditados':files,'seguridad_JWS':security,'comparacion_copias':{'convencional_modelado':'Un paquete documental por proveedor y por servicio: 3 ubicaciones primarias','fixture_minima':'Solo proveedor: 1 ubicación primaria; también un backup documental en ese mismo rol','limite':'Modelo sintético, no medición de un proveedor convencional real; backups no son nuevas instituciones'},'no_demostrado':['KYC humano auténtico','AML','aceptación legal','organizaciones independientes','OID4VCI/OID4VP/SD-JWT conformes','dos backends bajo idénticos requisitos','antifraude biométrico','unlinkability frente al emisor','custodia independiente','recuperación de wallet o autoridad persistente','inexistencia de fugas por transformaciones, memoria, red, dumps o software externo','borrado físico y ciclo completo de backups']}
   write(Path(__file__).with_name('resultado_minimizacion.json'),result)
   print(result['estado'],len(files),'archivos auditados;',security['check_count'],'controles JWS')

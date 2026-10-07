@@ -1,0 +1,425 @@
+{
+  "estado": "PASS",
+  "alcance": "SIMULADO: auditoría de archivos controlados; una fixture, un proceso, dos DB locales",
+  "controles": {
+    "captura_realmente_inyectada_en_fixture": true,
+    "control_positivo_detecta_documentos_en_proveedor": true,
+    "marcadores_ausentes_en_wallet_y_servicios": true,
+    "escaneo_acotado_completo": true,
+    "dos_servicios_aceptan_y_restauran_recibo": true,
+    "controles_JWS_21": true
+  },
+  "servicios": [
+    {
+      "servicio": "a",
+      "resultado": "ACCEPTED",
+      "recibo_tras_respuesta_perdida": "ACCEPTED",
+      "recibo_tras_restore": "ACCEPTED",
+      "bytes_cuerpo_presentacion": 1210,
+      "claims_personales": [
+        "adult",
+        "kyc"
+      ],
+      "metadatos": [
+        "iss",
+        "aud",
+        "iat",
+        "exp",
+        "jti",
+        "cnf",
+        "policy",
+        "epoch"
+      ],
+      "clave_holder_persistida": false
+    },
+    {
+      "servicio": "b",
+      "resultado": "ACCEPTED",
+      "recibo_tras_respuesta_perdida": "ACCEPTED",
+      "recibo_tras_restore": "ACCEPTED",
+      "bytes_cuerpo_presentacion": 1210,
+      "claims_personales": [
+        "adult",
+        "kyc"
+      ],
+      "metadatos": [
+        "iss",
+        "aud",
+        "iat",
+        "exp",
+        "jti",
+        "cnf",
+        "policy",
+        "epoch"
+      ],
+      "clave_holder_persistida": false
+    }
+  ],
+  "archivos_auditados": [
+    {
+      "archivo": "proveedor/backups/evidencia.json",
+      "bytes": 181,
+      "sha256": "2bad8256ea034a3cdecd0dc37f11d3f0f6d82df722c16e3f496cf5b47c67bd48",
+      "marcadores_PII": [
+        "documento",
+        "nacimiento",
+        "nombre",
+        "selfie"
+      ],
+      "hallazgos": [
+        {
+          "marcador": "documento",
+          "via": "literal"
+        },
+        {
+          "marcador": "nacimiento",
+          "via": "literal"
+        },
+        {
+          "marcador": "nombre",
+          "via": "literal"
+        },
+        {
+          "marcador": "selfie",
+          "via": "literal"
+        }
+      ],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "proveedor/evidencia.json",
+      "bytes": 181,
+      "sha256": "2bad8256ea034a3cdecd0dc37f11d3f0f6d82df722c16e3f496cf5b47c67bd48",
+      "marcadores_PII": [
+        "documento",
+        "nacimiento",
+        "nombre",
+        "selfie"
+      ],
+      "hallazgos": [
+        {
+          "marcador": "documento",
+          "via": "literal"
+        },
+        {
+          "marcador": "nacimiento",
+          "via": "literal"
+        },
+        {
+          "marcador": "nombre",
+          "via": "literal"
+        },
+        {
+          "marcador": "selfie",
+          "via": "literal"
+        }
+      ],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "proveedor/logs.json",
+      "bytes": 127,
+      "sha256": "729e247e6d03c08456230e2aab1d70dfa2b038952ead5a3d3a8702ec109c2d83",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/a/backups/recibos.sqlite",
+      "bytes": 20480,
+      "sha256": "dc2acc578e743bbfbceed585013e90b7f8f5b5d5bb538a104f1870b22b69b365",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/a/cache.json",
+      "bytes": 66,
+      "sha256": "acfeb3efed13075f512f12c5647fa059eb980afb168e98831d331e1f700d4a73",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/a/captura_presentacion.json",
+      "bytes": 1262,
+      "sha256": "41a5161c88932b0553f44ca896ebb719fb19e698e7a1f8df0e1b31eecc3d5c00",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 4
+    },
+    {
+      "archivo": "servicios/a/logs.json",
+      "bytes": 119,
+      "sha256": "2308720b4c67ff78a4a47a69218f68685f0078ab0eac64fae42bc32bef37cdef",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/a/restauracion/recibos.sqlite",
+      "bytes": 20480,
+      "sha256": "dc2acc578e743bbfbceed585013e90b7f8f5b5d5bb538a104f1870b22b69b365",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/a.sqlite",
+      "bytes": 20480,
+      "sha256": "0413024001bc71d1f867204ecc908841f195e7253beaac7f630a324d2239fc29",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/b/backups/recibos.sqlite",
+      "bytes": 20480,
+      "sha256": "3fac9819b22d6953e3ba4eca0f03404190535f3f6ee74212fe2b3222ee997d83",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/b/cache.json",
+      "bytes": 66,
+      "sha256": "acfeb3efed13075f512f12c5647fa059eb980afb168e98831d331e1f700d4a73",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/b/captura_presentacion.json",
+      "bytes": 1262,
+      "sha256": "03b9f4147838d99d5f509dedf9eddf41636da80bdb14de09b8217e488657469a",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 4
+    },
+    {
+      "archivo": "servicios/b/logs.json",
+      "bytes": 119,
+      "sha256": "2308720b4c67ff78a4a47a69218f68685f0078ab0eac64fae42bc32bef37cdef",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/b/restauracion/recibos.sqlite",
+      "bytes": 20480,
+      "sha256": "3fac9819b22d6953e3ba4eca0f03404190535f3f6ee74212fe2b3222ee997d83",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "servicios/b.sqlite",
+      "bytes": 20480,
+      "sha256": "f96e9ae11ac88c54b04b31b42b12955dd69ab57800c6fa197244bdbc00da172e",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    },
+    {
+      "archivo": "wallet/backups/credenciales.json",
+      "bytes": 988,
+      "sha256": "7afa1319ee10e34adbafe52279df2b7699d7150d75a96e159ac1dc55880f3653",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 4
+    },
+    {
+      "archivo": "wallet/credenciales.json",
+      "bytes": 988,
+      "sha256": "7afa1319ee10e34adbafe52279df2b7699d7150d75a96e159ac1dc55880f3653",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 4
+    },
+    {
+      "archivo": "wallet/logs.json",
+      "bytes": 56,
+      "sha256": "2461b06cadac827e2c2837552a61e7dee3c7a38bccf7676259ba4933f91adec5",
+      "marcadores_PII": [],
+      "hallazgos": [],
+      "escaneo_acotado_completo": true,
+      "limites_alcanzados": [],
+      "nodos_inspeccionados": 1
+    }
+  ],
+  "seguridad_JWS": {
+    "status": "PASS",
+    "scope": "synthetic JWS components only; no PCN imports; no OID/SD-JWT conformance; authority fixture in memory; no legal acceptance",
+    "checks": {
+      "valid_a": {
+        "expected_accept": true,
+        "observed_accept": true,
+        "pass": true
+      },
+      "replay_a": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "lost_response_a": {
+        "pass": true,
+        "meaning": "historical receipt; not renewed authorization"
+      },
+      "valid_b": {
+        "expected_accept": true,
+        "observed_accept": true,
+        "pass": true
+      },
+      "replay_b": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "lost_response_b": {
+        "pass": true,
+        "meaning": "historical receipt; not renewed authorization"
+      },
+      "underage": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "bad_kyc": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "expired": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "unauthorized_issuer": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "wrong_holder": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "wrong_audience": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "policy_substitution": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "tampering": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "revoked": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "stolen_trusted_key_forgery_COUNTEREXAMPLE": {
+        "expected_accept": true,
+        "observed_accept": true,
+        "pass": true
+      },
+      "withdrawn_issuer": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "old_key_after_recovery": {
+        "expected_accept": false,
+        "observed_accept": false,
+        "pass": true
+      },
+      "new_key_epoch": {
+        "expected_accept": true,
+        "observed_accept": true,
+        "pass": true
+      },
+      "distinct_personal_fields": {
+        "pass": true
+      },
+      "no_documents_in_presentations_or_db": {
+        "pass": true,
+        "limit": "issuer never supplied those fields; not a complete dataflow audit"
+      }
+    },
+    "check_count": 21,
+    "versions": {
+      "PyJWT": "2.10.1"
+    },
+    "counterexample_is_expected": true,
+    "not_demonstrated": [
+      "real KYC",
+      "AML",
+      "two independent organizations",
+      "no issuer correlation",
+      "authority independence",
+      "complete restore",
+      "status list standard",
+      "same requirements as dual PCN",
+      "production"
+    ]
+  },
+  "comparacion_copias": {
+    "convencional_modelado": "Un paquete documental por proveedor y por servicio: 3 ubicaciones primarias",
+    "fixture_minima": "Solo proveedor: 1 ubicación primaria; también un backup documental en ese mismo rol",
+    "limite": "Modelo sintético, no medición de un proveedor convencional real; backups no son nuevas instituciones"
+  },
+  "no_demostrado": [
+    "KYC humano auténtico",
+    "AML",
+    "aceptación legal",
+    "organizaciones independientes",
+    "OID4VCI/OID4VP/SD-JWT conformes",
+    "dos backends bajo idénticos requisitos",
+    "antifraude biométrico",
+    "unlinkability frente al emisor",
+    "custodia independiente",
+    "recuperación de wallet o autoridad persistente",
+    "inexistencia de fugas por transformaciones, memoria, red, dumps o software externo",
+    "borrado físico y ciclo completo de backups"
+  ]
+}

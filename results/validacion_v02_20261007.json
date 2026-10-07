@@ -1,0 +1,73 @@
+{
+  "estado": "PASS",
+  "alcance": "SIMULADO; no proveedor real ni validacion productiva",
+  "parent_commit": "dc870b669da8e27c9bbcdd04117a17fe1f9f6fb8",
+  "executed_at_utc": "2026-10-07T23:41:17.568051+00:00",
+  "environment": {
+    "os": "Linux",
+    "python": "3.12.14",
+    "PyJWT": "2.10.1",
+    "cryptography": "46.0.0"
+  },
+  "command": "python -B -W error::ResourceWarning -m unittest discover -v",
+  "tests_run": 23,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "test_results": [
+    "test_audit_normalizes_windows_paths (test_connection_cleanup.ConnectionCleanupTests.test_audit_normalizes_windows_paths) ... ok",
+    "test_complete_flow_closes_every_connection (test_connection_cleanup.ConnectionCleanupTests.test_complete_flow_closes_every_connection) ... PASS 18 archivos auditados; 21 controles JWS",
+    "test_failed_control_has_no_success_message (test_connection_cleanup.ConnectionCleanupTests.test_failed_control_has_no_success_message) ... ok",
+    "test_transaction_commit_and_rollback (test_connection_cleanup.ConnectionCleanupTests.test_transaction_commit_and_rollback) ... ok",
+    "test_invalid_base64_and_clean_log (test_provider_controls.PrivacyControls.test_invalid_base64_and_clean_log) ... ok",
+    "test_limits_never_report_complete_scan (test_provider_controls.PrivacyControls.test_limits_never_report_complete_scan) ... ok",
+    "test_literal_base64_base64url_jwt_and_nested (test_provider_controls.PrivacyControls.test_literal_base64_base64url_jwt_and_nested) ... ok",
+    "test_body_customer_mismatch (test_provider_controls.ProviderControls.test_body_customer_mismatch) ... ok",
+    "test_cached_approval_not_reused_after_change_or_outage (test_provider_controls.ProviderControls.test_cached_approval_not_reused_after_change_or_outage) ... ok",
+    "test_completed_green_required (test_provider_controls.ProviderControls.test_completed_green_required) ... ok",
+    "test_conflicting_reuse_options_rejected (test_provider_controls.ProviderControls.test_conflicting_reuse_options_rejected) ... ok",
+    "test_demo_runs_both_services_for_all_profiles (test_provider_controls.ProviderControls.test_demo_runs_both_services_for_all_profiles) ... ok",
+    "test_exception_details_and_arbitrary_values_not_logged (test_provider_controls.ProviderControls.test_exception_details_and_arbitrary_values_not_logged) ... ok",
+    "test_expiration_before_and_during_read (test_provider_controls.ProviderControls.test_expiration_before_and_during_read) ... ok",
+    "test_forged_notification_never_grants_or_logs_body (test_provider_controls.ProviderControls.test_forged_notification_never_grants_or_logs_body) ... ok",
+    "test_malformed_objects_do_not_approve (test_provider_controls.ProviderControls.test_malformed_objects_do_not_approve) ... ok",
+    "test_old_future_nan_or_wrong_resource_snapshot (test_provider_controls.ProviderControls.test_old_future_nan_or_wrong_resource_snapshot) ... ok",
+    "test_policy_and_audience_substitution_prevent_read (test_provider_controls.ProviderControls.test_policy_and_audience_substitution_prevent_read) ... ok",
+    "test_share_token_does_not_approve (test_provider_controls.ProviderControls.test_share_token_does_not_approve) ... ok",
+    "test_slow_read_and_clock_rollback (test_provider_controls.ProviderControls.test_slow_read_and_clock_rollback) ... ok",
+    "test_sumsub_retry_final_unknown_and_level (test_provider_controls.ProviderControls.test_sumsub_retry_final_unknown_and_level) ... ok",
+    "test_truora_override_and_step_success (test_provider_controls.ProviderControls.test_truora_override_and_step_success) ... ok",
+    "test_veriff_envelope_is_not_approval_or_aml (test_provider_controls.ProviderControls.test_veriff_envelope_is_not_approval_or_aml) ... ok"
+  ],
+  "demo_minimizacion": {
+    "status": "PASS",
+    "controlled_files": 18,
+    "jws_checks": 21
+  },
+  "demo_proveedores": {
+    "status": "PASS",
+    "profile_checks": 18,
+    "simulated_reads": 24
+  },
+  "python_3_11_syntax": "PASS; ast.parse, not a Python 3.11 runtime execution",
+  "windows_execution_v02": "PENDIENTE; previous version executed by user",
+  "no_live_provider_clients": true,
+  "sha256": {
+    ".gitignore": "907a1c618f19f62e44a6231b44e9c2578532c306ddeefc3e94bb35a840ab6a25",
+    "README.md": "cc7028734f163b38e440a78e608c562fbf6b02e89de3a511b54df39421b248fb",
+    "LEEME.txt": "6a1824f05ffe97a478f57c61ed1447e6f1ee79908124c1ac5d063fab0d8974fa",
+    "PCN_Minimo_Educativo.html": "8bd3122908e456cb982c3ccf9f1d1718da3bcc6a9f0fe72ed0715367d4f31409",
+    "demo_minimizacion.py": "fe6899f6960de31f6b94f833c87c002f9b73394a78e450c9cc19d6855d660a09",
+    "demo_proveedores.py": "44c15678a4f5f0d6defb141d0aeeeeebc213c525de10a0496732c6092493ad3b",
+    "provider_profiles.py": "89600b92b258ca3229ca61ef9c9a569aa8b8d42bde7256a92c4f194e81165c5c",
+    "decision_gate.py": "7686dad3593b5dff8c03f84f66c3095475c1b0aac1014e96657748b15bda8b69",
+    "privacy_audit.py": "f739146c320d0e55f5ac6ba42e74f93250f75c5279a28f37671d81cd9779bcf1",
+    "lab_fixtures.py": "ad69feb95f8caffa3737959710239b400b6c1327fd366ac8c94ec7fcf0e5c158",
+    "test_provider_controls.py": "dd163d88aa367799eebfb5158fa6c5a6f7c6589f0ae12ad0e1859a1eb14c1fe7",
+    "test_connection_cleanup.py": "04e500e8b824de1ff9c799fa0fc381db8241d8031b2f3150d277dec5446fb522",
+    "reference_jws.py": "bbd4813c4416ce3825077a0a31b3dd6d82d015e42edab965da579e602fa625ff",
+    "docs/proveedores.md": "3e5be7240b6813037ea2e6ca3beaf7b8663cfdab1d8c85bed1e5935293c72735",
+    "results/resultado_minimizacion_v02_20261007.json": "cbff0bfe03caec1eb69c9fe16add8d55853ec9f2459d88c19c2dc6b599cad09c",
+    "results/resultado_proveedores_v02_20261007.json": "7d98eade41c61ab494e139168ab144167faf3db9d9b02980e714d3c51c33d99a"
+  }
+}

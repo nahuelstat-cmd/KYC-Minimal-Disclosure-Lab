@@ -6,6 +6,7 @@ venv/
 .env.*
 resultado_minimizacion.json
 reference_jws_result.json
+resultado_proveedores.json
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm

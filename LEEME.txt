@@ -1,4 +1,4 @@
-﻿DEMOSTRACIÓN KYC MÍNIMO — SOLO LABORATORIO
+DEMOSTRACIÓN KYC MÍNIMO — SOLO LABORATORIO
 
 Abrir PCN_Minimo_Educativo.html para explicación, matriz y límites.
 Python probado: 3.12.14. Dependencias fijadas para reproducción, no selección
@@ -6,14 +6,19 @@ productiva ni afirmación de que sean versiones actuales.
 Crear y activar un venv. Ejecutar:
 python -m pip install -r requirements.txt
 python demo_minimizacion.py
+python demo_proveedores.py
+python -m unittest discover -v
 
 Resultado esperado: PASS, 18 archivos auditados, 21 controles JWS.
+La segunda demo: PASS, 18 controles de perfiles, 4 proveedores SIMULADOS.
+La suite completa: 23 pruebas. No sumar sus casos con los controles internos.
 El resultado JSON se escribe junto al script. Documentos ficticios y claves
 se usan en carpeta temporal; no se conservan claves privadas en el paquete.
 La matriz es una propuesta NO aceptada por un integrador.
 No hay llamadas a Ripio ni otro proveedor real, ni verificación biométrica.
 Los dos servicios son fixtures locales en el mismo proceso.
-Se inspeccionan canarios literales: no prueba general de inexistencia de PII.
+Se inspeccionan canarios literales, Base64/Base64URL y segmentos JWT con limites:
+no es una prueba general de inexistencia de PII.
 Una clave de emisor robada aún confiada permite falsificar afirmaciones.
 La wallet y autoridad usan claves/estado efímeros; no hay recovery productivo.
 Se simula respuesta perdida después del commit; perder respuesta del proveedor
@@ -22,3 +27,19 @@ antes del commit NO está resuelto por este ejemplo.
 El siguiente paso real exige contrato de datos por entidad, proveedor autorizado,
 retención y acceso a evidencia aprobados, y luego ensayo bajo igual función.
 No usar este ejemplo para aprobar KYC, transferencias o borrar evidencias reales.
+
+ACTUALIZACION 0.2
+Ver README.md y docs/proveedores.md: contratos, fuentes y limites.
+La nueva demo consulta fuentes simuladas antes de autorizar; no confia en un
+recibo antiguo ni en un evento atrasado. Mantiene dos consumidores por perfil.
+No conecta esos perfiles con la wallet ni con una API KYC autentica.
+El transporte y la autenticacion de notificaciones siguen siendo fixtures.
+No se incorpora codigo de PCN ni de integraciones ajenas.
+Dependencias sin cambios. Nueva version comprobada en Linux/Python 3.12;
+pendiente repetirla en Windows/Python 3.11, donde funcionaba la version anterior.
+
+Desde tu carpeta existente en PowerShell:
+git pull --ff-only origin main
+.\.venv\Scripts\python.exe -m unittest discover -v
+.\.venv\Scripts\python.exe .\demo_minimizacion.py
+.\.venv\Scripts\python.exe .\demo_proveedores.py
