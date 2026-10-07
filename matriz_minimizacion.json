@@ -1,0 +1,100 @@
+{
+  "estado": "PROPUESTA; NO APROBADA POR INTEGRADOR",
+  "fecha": "2026-10-07",
+  "perfil_lab": "Elegibilidad mayor de edad + KYC vigente; no onboarding de exchange regulado",
+  "integrador": null,
+  "responsable_legal": null,
+  "rows": [
+    {
+      "dato": "Documento y selfie",
+      "recibe": "Proveedor KYC",
+      "conserva": "Proveedor/custodio autorizado",
+      "evitar": "Wallet y presentación normal de elegibilidad",
+      "condicion": "Obligación y plazo por acordar; no borrar por este diseño"
+    },
+    {
+      "dato": "Nombre, DNI, nacimiento y domicilio",
+      "recibe": "Proveedor y responsable obligado cuando corresponda",
+      "conserva": "Legajo legal autorizado",
+      "evitar": "Servicio que solo evalúa elegibilidad, si esa finalidad y regulación lo permiten",
+      "condicion": "Identidad legal no equivale a atributo booleano"
+    },
+    {
+      "dato": "Mayor de edad",
+      "recibe": "Wallet y servicio A/B",
+      "conserva": "Credencial en wallet; recibo mínimo en servicio",
+      "evitar": "Fecha de nacimiento en la presentación de elegibilidad",
+      "condicion": "Booleano emitido para umbral fijo; no ZKP de predicado arbitrario"
+    },
+    {
+      "dato": "Resultado KYC y fecha de vigencia",
+      "recibe": "Wallet y servicio A/B",
+      "conserva": "Credencial y evidencia de decisión",
+      "evitar": "Detalles biométricos y paquete documental",
+      "condicion": "KYC vigente no implica monitoreo AML completo"
+    },
+    {
+      "dato": "Emisor, clave y versión de confianza",
+      "recibe": "Wallet y A/B",
+      "conserva": "Registro de confianza y auditoría mínima",
+      "evitar": "Identificador personal global",
+      "condicion": "Emisor autorizado; rotación y retiro obligatorios"
+    },
+    {
+      "dato": "Clave pública holder y referencia de credencial",
+      "recibe": "Wallet y servicio destinatario",
+      "conserva": "Wallet y recibo/contexto necesario",
+      "evitar": "Clave privada del holder y reutilización de una referencia global",
+      "condicion": "Claves distintas por servicio; emisor puede correlacionar"
+    },
+    {
+      "dato": "Nonce, audiencia, finalidad y hash de política",
+      "recibe": "Wallet y servicio destinatario",
+      "conserva": "Solicitud y recibo por plazo operativo aprobado",
+      "evitar": "Uso fuera de contexto",
+      "condicion": "Un solo consumo; persistencia transaccional"
+    },
+    {
+      "dato": "Revocación y estado actual",
+      "recibe": "Servicio destinatario",
+      "conserva": "Cache limitada según perfil aprobado",
+      "evitar": "Consulta individual identificable cuando sea evitable",
+      "condicion": "La demo usa estado en memoria; no status list estándar"
+    },
+    {
+      "dato": "Identidad ante auditoría o sospecha",
+      "recibe": "Responsable obligado y autoridad habilitada",
+      "conserva": "Expediente autorizado según ley",
+      "evitar": "Soporte y trazas generales",
+      "condicion": "Acceso autenticado, autorizado y auditado; no implementado en demo"
+    },
+    {
+      "dato": "Logs y trazas",
+      "recibe": "Operadores autorizados por rol",
+      "conserva": "Solo metadatos mínimos necesarios",
+      "evitar": "Payload, tokens íntegros, selfie y documento en logs generales",
+      "condicion": "Demo inspecciona logs ficticios, no APM real"
+    },
+    {
+      "dato": "Caches y backups",
+      "recibe": "Custodio del componente",
+      "conserva": "Misma restricción que el original y plazo aprobado",
+      "evitar": "Ampliación de destinatarios por backup",
+      "condicion": "Demo restaura recibos SQLite; no prueba borrado físico"
+    },
+    {
+      "dato": "Claves privadas y recuperación",
+      "recibe": "Custodio del rol; wallet del holder",
+      "conserva": "Custodia aprobada con separación real",
+      "evitar": "Verificadores, logs y backups sin protección",
+      "condicion": "Fixture efímera; recuperación de claves/autoridad persistente pendiente"
+    }
+  ],
+  "gates": [
+    "Aceptar por escrito identidad requerida, acceso a evidencia y retención por entidad",
+    "Elegir un proveedor y un receptor real con una copia evitable demostrada",
+    "Definir umbrales de latencia, exposición, fraude y disponibilidad antes del piloto",
+    "Comparar flujo convencional y mínimo con el mismo requisito y captura auténtica",
+    "Ensayar dos backends, retiro de emisor, recuperación persistente y restauración adversarial"
+  ]
+}

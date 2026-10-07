@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+resultado_minimizacion.json
+reference_jws_result.json
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
