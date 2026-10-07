@@ -20,7 +20,7 @@ def audit(root):
  records=[]
  for path in sorted(root.rglob('*')):
   if path.is_file():
-   data=path.read_bytes();records.append({'archivo':str(path.relative_to(root)),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'marcadores_PII':[name for name,value in MARKERS.items() if value.encode() in data]})
+   data=path.read_bytes();records.append({'archivo':path.relative_to(root).as_posix(),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'marcadores_PII':[name for name,value in MARKERS.items() if value.encode() in data]})
  return records
 
 def main():
@@ -60,7 +60,10 @@ def main():
   result={'estado':'PASS' if all(controls.values()) else 'FAIL','alcance':'SIMULADO: auditoría de archivos controlados; una fixture, un proceso, dos DB locales','controles':controls,'servicios':observations,'archivos_auditados':files,'seguridad_JWS':security,'comparacion_copias':{'convencional_modelado':'Un paquete documental por proveedor y por servicio: 3 ubicaciones primarias','fixture_minima':'Solo proveedor: 1 ubicación primaria; también un backup documental en ese mismo rol','limite':'Modelo sintético, no medición de un proveedor convencional real; backups no son nuevas instituciones'},'no_demostrado':['KYC humano auténtico','AML','aceptación legal','organizaciones independientes','OID4VCI/OID4VP/SD-JWT conformes','dos backends bajo idénticos requisitos','antifraude biométrico','unlinkability frente al emisor','custodia independiente','recuperación de wallet o autoridad persistente','inexistencia de fugas por transformaciones, memoria, red, dumps o software externo','borrado físico y ciclo completo de backups']}
   write(Path(__file__).with_name('resultado_minimizacion.json'),result)
   print(result['estado'],len(files),'archivos auditados;',security['check_count'],'controles JWS')
+  if result['estado'] != 'PASS':
+   failed = [name for name, passed in controls.items() if not passed]
+   print('Controles fallidos:', ', '.join(failed))
+   raise RuntimeError('Auditoría rechazada: ' + ', '.join(failed))
   print('Documento/selfie/nacimiento/nombre: presentes en proveedor; ausentes en archivos controlados de wallet y servicios.')
-  assert result['estado']=='PASS'
 
 if __name__=='__main__':main()

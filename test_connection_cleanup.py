@@ -1,8 +1,10 @@
 """Regression: keep connections alive to expose leaked SQLite file handles."""
 import sqlite3
+import io
+from contextlib import redirect_stdout
 import tempfile
 import unittest
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from unittest.mock import patch
 import demo_minimizacion
 import reference_jws
@@ -34,6 +36,29 @@ class ConnectionCleanupTests(unittest.TestCase):
         finally:
             for connection in connections:
                 connection.close()
+
+    def test_audit_normalizes_windows_paths(self):
+        class WindowsFile:
+            def is_file(self): return True
+            def read_bytes(self): return b'fixture'
+            def relative_to(self, root):
+                return PureWindowsPath('proveedor/evidencia.json')
+        class FakeRoot:
+            def rglob(self, pattern): return [WindowsFile()]
+        records = demo_minimizacion.audit(FakeRoot())
+        self.assertEqual(records[0]['archivo'], 'proveedor/evidencia.json')
+        self.assertTrue(records[0]['archivo'].startswith('proveedor/'))
+
+    def test_failed_control_has_no_success_message(self):
+        security = reference_jws.run()
+        security['status'] = 'FAIL'
+        output = io.StringIO()
+        with patch.object(demo_minimizacion, 'security_checks', return_value=security):
+            with redirect_stdout(output):
+                with self.assertRaisesRegex(RuntimeError, 'controles_JWS_21'):
+                    demo_minimizacion.main()
+        self.assertIn('Controles fallidos: controles_JWS_21', output.getvalue())
+        self.assertNotIn('presentes en proveedor; ausentes', output.getvalue())
 
     def test_transaction_commit_and_rollback(self):
         with tempfile.TemporaryDirectory() as temp:
