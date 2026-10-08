@@ -153,6 +153,14 @@ o nivel, token de compartir usado como aprobación, caída, respuesta antigua,
 reloj inválido, caducidad durante la lectura, notificación falsa, política o
 audiencia sustituida y datos codificados. No son certificaciones de proveedores.
 
+El usuario reportó en Windows la ejecución de `03b88ab`: las 23 pruebas
+terminaron en OK en 2,607 segundos y ambas demos terminaron en PASS.
+La evidencia procede de la consola compartida, con PowerShell 7.6.6; no incluye
+la versión de Python, los archivos JSON producidos ni hashes del entorno local.
+Se registra en `results/validacion_windows_v02_reportada_20261007.json`, sin
+reemplazar el manifiesto de la ejecución Linux anterior. No se interpreta el
+tiempo de la suite como latencia de proveedor ni como resultado productivo.
+
 El segundo experimento ejecuta 18 controles funcionales y 24 lecturas simuladas
 contadas en el lector. La referencia de caché es **un modelo explícito** que
 conserva el booleano inicial; no es una API real ni una medición del comportamiento

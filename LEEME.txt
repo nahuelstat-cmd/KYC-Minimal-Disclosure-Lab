@@ -35,8 +35,12 @@ recibo antiguo ni en un evento atrasado. Mantiene dos consumidores por perfil.
 No conecta esos perfiles con la wallet ni con una API KYC autentica.
 El transporte y la autenticacion de notificaciones siguen siendo fixtures.
 No se incorpora codigo de PCN ni de integraciones ajenas.
-Dependencias sin cambios. Nueva version comprobada en Linux/Python 3.12;
-pendiente repetirla en Windows/Python 3.11, donde funcionaba la version anterior.
+Dependencias sin cambios. Nueva version comprobada en Linux/Python 3.12.
+El usuario reporto ademas Windows/PowerShell 7.6.6, commit 03b88ab:
+23 pruebas, OK en 2,607 segundos; ambas demos PASS. Python no aparece en esa
+consola. Evidencia aportada por el usuario, sin los JSON generados ni sus hashes.
+Registro: results/validacion_windows_v02_reportada_20261007.json.
+El tiempo corresponde a la suite, no a la latencia de una API KYC.
 
 Desde tu carpeta existente en PowerShell:
 git pull --ff-only origin main

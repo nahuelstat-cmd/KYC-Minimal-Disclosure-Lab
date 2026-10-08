@@ -1,0 +1,65 @@
+{
+  "estado": "PASS_REPORTADO_POR_USUARIO",
+  "alcance": "SIMULADO; pruebas y demos locales, sin proveedores KYC reales",
+  "proveniencia": {
+    "fuente": "Transcript de PowerShell compartido por el usuario en la conversacion",
+    "fecha_reporte_local": "2026-10-07",
+    "zona_horaria": "America/Buenos_Aires",
+    "ejecucion_windows_realizada_por_asistente": false,
+    "json_generados_en_windows_recibidos": false,
+    "hashes_de_archivos_locales_recibidos": false,
+    "rutas_personales_omitidas": true
+  },
+  "revision": {
+    "commit_corto_mostrado_en_pull": "03b88ab",
+    "commit_publicado_correspondiente": "03b88ab4af9d433596f1c59544fe1b039031e720",
+    "actualizacion": "Fast-forward desde dc870b6",
+    "limite": "El pull identifica la revision recibida; no se aporto git status ni una verificacion del arbol de trabajo local"
+  },
+  "entorno_observado": {
+    "sistema": "Windows",
+    "version_windows": null,
+    "powershell": "7.6.6",
+    "python": null,
+    "versiones_dependencias": null,
+    "nota": "No inferir versiones exactas de runtime o dependencias a partir de ejecuciones anteriores"
+  },
+  "suite": {
+    "comando": ".\\.venv\\Scripts\\python.exe -m unittest discover -v",
+    "pruebas": 23,
+    "resultado": "OK",
+    "fallos": 0,
+    "errores": 0,
+    "segundos_suite": 2.607,
+    "benchmark_proveedor": false
+  },
+  "demo_minimizacion": {
+    "comando": ".\\.venv\\Scripts\\python.exe .\\demo_minimizacion.py",
+    "estado": "PASS",
+    "archivos_auditados": 18,
+    "controles_JWS": 21,
+    "salida": [
+      "PASS 18 archivos auditados; 21 controles JWS",
+      "Documento/selfie/nacimiento/nombre: presentes en proveedor; ausentes en archivos controlados de wallet y servicios."
+    ]
+  },
+  "demo_proveedores": {
+    "comando": ".\\.venv\\Scripts\\python.exe .\\demo_proveedores.py",
+    "estado": "PASS",
+    "controles_perfiles": 18,
+    "proveedores_simulados": 4,
+    "marcadores_busqueda_literal_control_positivo": 0,
+    "marcadores_tras_decodificar_control_positivo": 3,
+    "marcadores_logs_minimos": 0,
+    "salida": [
+      "PASS 18 controles de perfiles; 4 proveedores SIMULADOS",
+      "Base64: 0 marcadores con busqueda literal, 3 al decodificar; 0 en logs minimos."
+    ]
+  },
+  "limites": [
+    "No sumar controles internos y pruebas como experimentos independientes",
+    "La consola no demuestra inexistencia general de PII ni cobertura de sistemas externos",
+    "No demuestra autenticacion o conformidad con APIs reales de proveedores",
+    "No demuestra preparacion productiva ni aceptacion regulatoria"
+  ]
+}

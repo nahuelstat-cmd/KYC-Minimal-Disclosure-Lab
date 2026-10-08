@@ -44,10 +44,13 @@ La captura ficticia **no verifica autenticidad documental, vida, rostro ni ident
 ## Ejecutar
 
 Actualización probada en Linux con Python 3.12.14, PyJWT 2.10.1 y cryptography
-46.0.0. La versión anterior fue ejecutada por el usuario con Python 3.11 en
-Windows; esta actualización aún necesita esa ejecución. No se exige instalar
-Python 3.12 si ya existe un entorno 3.11. Dependencias sin cambios, fijadas para
-reproducibilidad; no son una selección productiva.
+46.0.0. El usuario también reportó una ejecución de esta actualización
+(`03b88ab`) en Windows con PowerShell 7.6.6: 23 pruebas en 2,607 segundos,
+resultado OK y ambas demos PASS. Es evidencia de consola aportada por el
+usuario; no una ejecución Windows realizada por el asistente. La versión de
+Python no aparece en ese transcript (la ejecución anterior usaba 3.11).
+No se exige instalar Python 3.12 si ya existe un entorno 3.11. Dependencias
+sin cambios, fijadas para reproducibilidad; no son una selección productiva.
 
 En Windows PowerShell, para una instalación nueva:
 
@@ -100,6 +103,12 @@ actualización están en `results/validacion_v02_20261007.json`,
 `results/resultado_minimizacion_v02_20261007.json` y
 `results/resultado_proveedores_v02_20261007.json`. La ejecución inicial se
 conserva como antecedente; los tiempos locales no son benchmarks de proveedores.
+
+La ejecución posterior de Windows está registrada por separado en
+[`results/validacion_windows_v02_reportada_20261007.json`](results/validacion_windows_v02_reportada_20261007.json).
+El manifiesto Linux original conserva el estado conocido al publicarse; su
+campo de Windows pendiente queda complementado por esta evidencia posterior.
+No se recibieron los JSON generados en Windows ni sus hashes.
 
 Para ejecutar solo los controles criptográficos de componentes:
 
